@@ -36,13 +36,13 @@ public:
      * returns a vector of Trades that occur when this order is placed.
      * A trade occurs when the incoming order wants to buy at a price higher than pending sell orders,
      * at a price specified on each of the sell order.*/
-  string placeBuyOrder(int issuerID, int price, int amt);
+  string placeBuyOrder(string buyer, int price, int amt);
 
   /* Place a new sell order at price `price` with amount (volume) of `amt`
      * returns a vector of Trades that occur when this order is placed.
      * A trade occurs when the incoming order wants to sell at a price lower than pending buy orders,
      * at a price specified on each of the buy order.*/
-  string placeSellOrder(int issuerID, int price, int amt);
+  string placeSellOrder(string seller, int price, int amt);
 
   // TODO: RETURN AN INT/BOOL REPRESENTING STATUS CODE
   // Delete an order specified by `issuerID` and `orderID`. Does nothing if parameters are invalid.
