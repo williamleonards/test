@@ -204,7 +204,7 @@ string TradeEngine::placeBuyOrder(string buyer, int price, int amt)
             }
             // delete fully converted orders
             ostringstream deleteQuery;
-            deleteQuery << "DELETE FROM ts.buy_orders WHERE price = " << currPrice;
+            deleteQuery << "DELETE FROM ts.sell_orders WHERE price = " << currPrice;
             if (partiallyConvertedOrders.size() > 0)
             {
                 deleteQuery << " AND order_id < " << partiallyConvertedOrders[0].first;
@@ -242,8 +242,8 @@ string TradeEngine::placeBuyOrder(string buyer, int price, int amt)
         if (currAmt > 0)
         {
             ostringstream insertOrderQuery;
-            insertOrderQuery << "INSERT INTO ts.buy_orders (username, amount, price) " 
-                << " VALUES (" << buyer << ", " 
+            insertOrderQuery << "INSERT INTO ts.buy_orders (username, amount, price, valid_bit) " 
+                << " VALUES ('" << buyer << "', " 
                 << currAmt << ", " << price << ", true)";
             W.exec(insertOrderQuery.str());
         }
@@ -351,8 +351,8 @@ string TradeEngine::placeSellOrder(string seller, int price, int amt)
         if (currAmt > 0)
         {
             ostringstream insertOrderQuery;
-            insertOrderQuery << "INSERT INTO ts.sell_orders (username, amount, price)" 
-                << " VALUES (" << seller << ", "
+            insertOrderQuery << "INSERT INTO ts.sell_orders (username, amount, price, valid_bit)" 
+                << " VALUES ('" << seller << "', "
                 << currAmt << ", " << price << ", true)";
             W.exec(insertOrderQuery.str());
         }
